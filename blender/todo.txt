@@ -1,0 +1,9 @@
+
+ .-------------------.
+ | blender todo list |
+ `-------------------`
+
+- subdivide the lower two wall two by fours and make their edges more apparent
+- write a script to automatically assemble code compliant housing in blender
+- your system of modeling should be a combination of scripting an hand modeling. write scripts to automate tedious modeling, lend models a procedural complexity that they couldnt have without scripting. many things could be scripted or semi-scripted including houses, offices, towns and cities. cars as well.
+- 

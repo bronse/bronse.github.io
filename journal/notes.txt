@@ -1,0 +1,42 @@
+
+ .-----------------.
+ | notes on room_1 |
+ `-----------------`
+
+sunday august 6 2017
+
+i want this game to be a very simple escape the room game. i want to write it for the browser. in my aimless wanderings i have learned that the best way to do such a thing is by using the new html5 standard -- specifically the canvas element. so today i looked around and found some old webgl code that i was playing around with about a year ago. while googling around i found out that the html5 canvas element supports two "contexts" or modes: 2d and webgl. webgl is capable of doing amazing things, including running full shaders. however, i realized that the 2d context was probably more well suited for my purposes.
+
+an escape the room game is a series of animations. you start out in one part of the room, and you can click on another area to go there. an animation plays, showing the room moving around you, settling and stopping at that new area. when you are still, there is simply an image of the room -- when you are moving, successive frames of animation appear on the canvas. all that one needs is the ability to assign images to the screen, theres no need for shaders or 3d rendering. and using still images also has the benefit that you can render very complicated scenes without taxing the client -- cpu and gpu stay the same no matter the scene complexity, but the amount of data storage and transfer are higher due to all those images being loaded. 
+
+... hours
+
+putting images into an array and simply incrementing the index every frame seems to work. i cant help but feel that this method will end up having some kind of huge flaw that will only be apparent once i try to scale upward. but that is a bridge that i will cross later. right now i want to think about the details of creating these animations. before i even talk about the modeling software, i need to consider the factorial nature of these kinds of animations. you see, if you are making a game where the player has the ability to alter the environment, you need to account for all possible changes to the environment when you are making animations. for example, imagine the following room:
+
+ |-------------|
+ |             |
+ | {p1}  {p2} [|
+ |             |
+ |-------------|
+
+the room has two player positions and a door. player position 2 is near the door. imagine that the player starts at position 1 and then moves to pos 2. he then opens the door. then he moves back to pos 1. the animation for going back to pos 1 must depict the door open. but, the player had the option of leaving the door closed, so there must also be an animation going from p2 to p1 in which the door is closed. now imagine that there is more than one door on that wall -- you would need a different animation for every possible combination of open and closed doors. and in reality, you would need two sets, one for p1 -> p2 and one for p2 -> p1. this gets quite complicated. therefore, a map must be created of all animations. this means that when the game is layed out, it must be distilled into its interactive objects and a map created from those. 
+
+... days
+
+blender is an open source animation and rendering program. i tried it and it works quite well -- animations of pixar quality can be made with blender if one is so inclined.
+
+instead of using an array of images, it would probably be better to have a set of videos. videos play images by virtue of hardware acceleration, making an array of images look very clunky indeed. so i went ahead and implemented it, and it is now in a state where one can click on the canvas to switch the video currently displayed. all that remains is to set up the logic of which videos to play at what time and implement it in js. and, of course a menu and rendered videos are needed as well. 
+
+... days
+
+since my last entry i have implemented a crude main menu and also done a lot of work to make video playing more reliable and stable. there are lots of things to do, but the thing i want to do now is to implement a console. ive always wanted to implement a console in a game.
+
+... days
+
+well after a few days of tireless coding i have created a mode system for rendering videos, menus and the console. so now the mode is switched on the fly to allow different data structures and rendering styles to be used for different applications. the menu is basically done. it supports rollover highlighting, clicking, button restructuring and all that stuff. the console is done, it supports logging actions and displaying them in a fancy console screen as well as entering simple commands to alter game variables and do other things. and video playing has been done for a while now. when i say done, i mean that it works. so besides moving everything into their own files and rewriting them to make them faster, better and adherant to best practices, i am actually ready to start making the substance of the game. if i already had renderings, i could write up the game logic and be done by the end of the week. 
+
+there are a couple of issues though. for one, looping video playback is choppy. at least for the one green ghost looping video it is. it flashes white every once in a while as well. i really want to get rid of that. more importantly though, just moments ago i was horrified to find that the console does not appear at all when the game is played on the chrome browser. and also, video playback doesnt resume after leaving the console in chrome. i dont even want to imagine what the game will do in safari. i suppose that there is a silver lining in that debugging for each browser will give me lots of experience. 
+
+... one day
+
+today i moved all the parts of the code into their own files. also, i reorganized the files, deleted a bunch of old obsolete files and figured out how html resource urls work. always make sure to prepend directories with ./ or else there will be errors. besides debugging chrome, getting video playback to be less choppy and doing a bunch of other polish and cleanup to the code, its done. now is the time when i should start modeling the garage.

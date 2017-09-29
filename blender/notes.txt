@@ -1,0 +1,1 @@
+to make selections fast, go to file:user preferences:system:selection and set it to occlusion query.

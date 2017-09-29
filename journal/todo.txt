@@ -1,0 +1,15 @@
+todo.txt
+
+- create a debug console
+- move stuff into other files with script tags
+- make sure all assets are loaded before using them
+- figure out why scrolling breaks clicking
+    - scrolling seems to shift the click region down, which suggests that the mouse position needs to be updated more frequently or is totally broken if scrolling is enabled
+- make it so that scenes use a name or a var instead of an id when mouse clicks are switched
+- throttle menu video framerate to 30 or 25 fps
+- move scene_001 to the new menu rendering mode, after writing menu render function and plugging it in to the render mode system
+- make the mouseclick callback call a custom mouseclick handler based on the current render mode, like the keypress callback
+- move all render modes into their own objects to create a kind of namespace. then move them into their own files
+- object properties seems to be mutable sometimes and immutable other times. figure out why it appears this way (they are always mutable. couldnt reproduce problem)
+- find a plugin for vscode that doesnt throw error for comment highlighting AND adds semi-colons to the end of objects for crying out loud
+- not sure if repeat, read and apply the airbnb style guide

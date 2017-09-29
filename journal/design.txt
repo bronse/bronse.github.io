@@ -1,0 +1,71 @@
+
+ .------------------------.
+ | room_1 design document |
+ `------------------------`
+
+this document will lay out the entire game
+
+the game will take place in a garage. one room only. there will be three ways to escape the room: 
+
+ - through an air vent
+ - through the side door
+ - through the main garage door
+
+each escape will have its own special animation -- each espace animation should be rewarding and satisfying to watch.
+
+i want to avoid having an inventory or any other visual distractions around the edges of the canvas.
+
+ # special exhibits
+
+i want to include a few special exhibits. the game can be completed without ever interacting with them -- they are there simply to be enjoyed. 
+
+ - a window of some kind through which the day/night cycle can be observed and maybe a landscape with changing scenery. using alpha blending, planes can leave condensation trails overhead in random directions and orientations determined at run time, as long as the window is opened and closed when approached and left. 
+
+ - 
+
+ # interface and movement
+
+the player will move around with a simple system where each edge of the canvas is a button for movement. it will be possible to allow the player to move freely on a grid but that would be too complicated. 
+
+the enemy that we face when it comes to the interface and movement is ambiguity. how can the player know what can be clicked wihtout trying everything? how does the player know where the movement button will take him next? 
+
+part of the solution is separating the concept of looking at something and navigating. the game consists of several scenes where the player is standing in a spot and he has the option to move to another spot or to interact with any of the interactive items that are visible from that scene. if every interactive item is marked with something in the game world, there will be no ambiguity about what can be clicked on and what cant. for example, an orange post-it that grabs ones attention. this is a much better option than doing something where interactive items highlight when rolled over. 
+
+so, the player will be able to move around from scene to scene. each scene will have in its view a set of intereactive things marked by a real world object. when that is clicked, an animations plays zooming in on the interactive subject. once in an interactive view, there will be a single navigation button that allows the player to return to the scene. 
+
+a scene is any static view that the player can assume. a "nav scene" is a scene where one is moving around. a "zoom scene" is a scene where the player is looking at or interacting with something. each scene has its own set of hit regions. 
+
+when it comes to movement, only two buttons are needed. they can cycle through the scenes. the only down-side is that one cannot skip to a scene that isnt adjacent to the current scene.
+
+ # environmental notes
+
+ - skylights are changing when static and changing when moving, so a special solution is in order. the sky doesnt change when you move around underneath it, so a sky video can be played under the garage video, with the sky areas of the skyight alpha'ed out. this allows one to have tree branches and other things outside the skylight that move and parallax realistically when the player moves. for the sake of perf, the sky video can only occupy a small patch of the canvas -- just enough to fill the skylight. the sun and moon and also clouds would need to be implemented in a separate video, though, because those do move and change when one changes their perspective. the only solution i can think of is to move the patch of moon or sun video around on the canvas to correspond the parallax that would happen in real life.
+
+ - lights are additive right? if there are two lights in the garage, we can overlay a static lighting mask onto the scene for each light. whether both are on or off, or if one is on and the other off, it shouldnt matter. the only exception is that reflections would change, but maybe even those could be overlaid. 
+
+ - dust coudl be simulated by moving planes of dust around during transitions, simulating paralax. dust is amorphous enough for inconsistencies to be only slightly noticeable, such as dust appearing in a depth plane that is obscured by an object or a wall. global dust might be too much but dust in a shaft of window light might be doable, as long as one never went too close to it.  
+
+ # style notes
+
+minimal and thoughtful texturing and modeling should be used, similar to that in metal gear solid 2. 
+
+ # technical notes
+
+tiling video is possible. also, overlaying video with alpha blending is possible. the performance penalty of doing these things may or may not be acceptable, however. it should be remembered that, except when looking at continuously moving objects, these blending and tiling perf hits will only last during transition animations.
+
+ # game structure
+
+there are three ways to escape. each of those must have their own chain of puzzles. each puzzle chain must have the quality of rigid stepping -- each puzzle must be solved sequentially, and no puzzle can be intereacted with until the previous puzzle is solved. moving on, all puzzles and puzzle items must be within plain sight more or less -- one of the least pleasing aspects of escape the room games is their tendency to depend on hunting for a small, single pixel that one must click on in order to progress. 
+
+ - side door
+the side door will be opened by a key. 
+
+ - air vent
+the air vent will be opened by a screw driver. 
+
+ - garage door
+the garaage door will be opened via a switch. the switch will be powered by a breaker. there will be labels on the breakers like in a typical house -- they will provide clues about what arrangement the breaker switches need to be in in order to power the switch. the key to the breaker will be inside a 
+
+try to think of puzzles similar to those in the witness
+
+also, make different dust videos, one video for each direction of movement, and play it over transitions
